@@ -17,6 +17,7 @@ public class CustomerServiceImpl implements CustomerService{
                 HashMap<Integer, Customer>(){
                     {
                         put(1, new Customer(1, "demo", "..", "demo@gmail.com", "bangalore", 9876543));
+                        put(2, new Customer(2, "hello", "..", "hello@gmail.com", "mangalore", 9876543));
                     }
         };
     }
