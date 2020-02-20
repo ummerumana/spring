@@ -16,7 +16,7 @@ public class CustomerServiceImpl implements CustomerService{
         customers = new
                 HashMap<Integer, Customer>(){
                     {
-                        put(1, new Customer(1, "demo", "..", "demo@gmail.com", "bangalore", 9876543));
+                        put(1, new Customer(1,"demo", "..", "demo@gmail.com", "bangalore", 9876543));
                         put(2, new Customer(2, "hello", "..", "hello@gmail.com", "mangalore", 9876543));
                     }
         };
@@ -50,7 +50,6 @@ public class CustomerServiceImpl implements CustomerService{
 
         if(id == customers.put(customer.getId(),customer).getId())
         return true;
-        else
         return false;
     }
 

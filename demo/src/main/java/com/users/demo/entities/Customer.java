@@ -1,6 +1,5 @@
 package com.users.demo.entities;
 
-
 public class Customer {
     private int id;
     private String firstName;
