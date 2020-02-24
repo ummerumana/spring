@@ -23,17 +23,17 @@ public class CustomerServiceImpl implements CustomerService{
     }
     @Override
     public Collection<Customer> getAllCustomers() {
-        return this.customers.values();
+        return customers.values();
     }
 
     @Override
     public Customer getCustomerById(int id) {
-        return this.customers.get(id);
+        return customers.get(id);
     }
 
     @Override
     public int deleteCustomerById(int id) {
-        return this.customers.remove(id).getId();
+        return customers.remove(id).getId();
     }
 
     @Override
