@@ -1,29 +1,58 @@
 package com.users.demo.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.users.demo.entities.Customer;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
 
 @Repository
 public class CustomerServiceImpl implements CustomerService{
+    private static File file;
+    private static FileWriter fw;
+    private static FileReader fr;
+
+   static
+   {
+       try {
+           file = new File("/home/ummerummana/Documents/customers/details.json");
+           if (file.exists()) {
+               fr = new FileReader(file);
+               fw = new FileWriter(file);
+           }
+       }
+       catch(Exception e) {
+            System.out.println("Exception caught "+e.getMessage());
+       }
+   }
+
+
+
     private static Map<Integer, Customer> customers;
 
-    static
-    {
-        customers = new
-                HashMap<Integer, Customer>(){
-                    {
-                        put(1, new Customer(1,"demo", "..", "demo@gmail.com", "bangalore", 9876543));
-                        put(2, new Customer(2, "hello", "..", "hello@gmail.com", "mangalore", 9876543));
-                    }
-        };
-    }
     @Override
     public Collection<Customer> getAllCustomers() {
-        return customers.values();
+        Collection<Customer> c = new ArrayList<Customer>();
+        try {
+            //JSON parser object to parse read file
+            JSONParser jsonParser = new JSONParser();
+            JSONArray customerList = (JSONArray) jsonParser.parse(fr);
+            System.out.println(customerList);
+            for(int i=0;i<customerList.size();i++) {
+                JSONObject cust = (JSONObject) customerList.get(i);
+                c.add((Customer) cust.get(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return c;
     }
 
     @Override
@@ -38,11 +67,27 @@ public class CustomerServiceImpl implements CustomerService{
 
     @Override
     public boolean insertCustomer(int id,Customer customer) {
+        ObjectMapper Obj = new ObjectMapper();
 
-        if(customers.containsKey(id))
+        try {
+            String jsonStr = Obj.writeValueAsString(customer);
+            System.out.println(jsonStr);
+            JSONObject jObject = new JSONObject();
+            jObject.put(id, jsonStr);
+
+            JSONArray customerList = new JSONArray();
+            customerList.add(jObject);
+
+            fw.write(customerList.toJSONString());
+            //fw.write(jsonStr);
+            fw.flush();
+            fw.close();
+            return true;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
         return false;
-        customers.put(id,customer);
-        return true;
     }
 
     @Override
