@@ -2,6 +2,7 @@ package com.users.demo.controller;
 
 import com.users.demo.entities.Customer;
 import com.users.demo.service.CustomerService;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class CustomerController {
     CustomerService customerService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    Collection<Customer> getAllCustomers() {
+    Collection<JSONObject> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 

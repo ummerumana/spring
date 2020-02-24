@@ -15,39 +15,25 @@ import java.util.*;
 
 @Repository
 public class CustomerServiceImpl implements CustomerService{
-    private static File file;
-    private static FileWriter fw;
-    private static FileReader fr;
+    private File file = new File("/home/ummerummana/Documents/customers/details.json");
 
-   static
-   {
-       try {
-           file = new File("/home/ummerummana/Documents/customers/details.json");
-           if (file.exists()) {
-               fr = new FileReader(file);
-               fw = new FileWriter(file);
-           }
-       }
-       catch(Exception e) {
-            System.out.println("Exception caught "+e.getMessage());
-       }
-   }
-
-
+    private FileWriter fw;
+    private FileReader fr;
 
     private static Map<Integer, Customer> customers;
 
     @Override
-    public Collection<Customer> getAllCustomers() {
-        Collection<Customer> c = new ArrayList<Customer>();
+    public Collection<JSONObject> getAllCustomers() {
+        Collection<JSONObject> c = new ArrayList<JSONObject>();
         try {
+            fr = new FileReader(file);
             //JSON parser object to parse read file
             JSONParser jsonParser = new JSONParser();
             JSONArray customerList = (JSONArray) jsonParser.parse(fr);
             System.out.println(customerList);
             for(int i=0;i<customerList.size();i++) {
                 JSONObject cust = (JSONObject) customerList.get(i);
-                c.add((Customer) cust.get(1));
+                c.add(cust);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,6 +56,7 @@ public class CustomerServiceImpl implements CustomerService{
         ObjectMapper Obj = new ObjectMapper();
 
         try {
+            fw = new FileWriter(file);
             String jsonStr = Obj.writeValueAsString(customer);
             System.out.println(jsonStr);
             JSONObject jObject = new JSONObject();
