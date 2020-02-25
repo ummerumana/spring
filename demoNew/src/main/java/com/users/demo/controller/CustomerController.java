@@ -15,8 +15,8 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    Collection<JSONObject> getAllCustomers() {
+    @RequestMapping(method = RequestMethod.GET, value = "/all")
+    Collection<Customer> getAllCustomers() {
         return customerService.getAllCustomers();
     }
 

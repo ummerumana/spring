@@ -1,54 +1,82 @@
 package com.users.demo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.org.apache.xerces.internal.xs.datatypes.ObjectList;
 import com.users.demo.entities.Customer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Repository;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 @Repository
 public class CustomerServiceImpl implements CustomerService{
-    private File file = new File("/home/ummerummana/Documents/customers/details.json");
+    private File file = new File("/home/ummerummana/Documents/customers/details.txt");
 
     private FileWriter fw;
     private FileReader fr;
+    private BufferedReader br;
 
     private static Map<Integer, Customer> customers;
 
     @Override
-    public Collection<JSONObject> getAllCustomers() {
-        Collection<JSONObject> c = new ArrayList<JSONObject>();
+    public List<Customer> getAllCustomers() {
+        List<Customer> cList = new ArrayList<Customer>();
+        ObjectMapper obj = new ObjectMapper();
         try {
             fr = new FileReader(file);
-            //JSON parser object to parse read file
-            JSONParser jsonParser = new JSONParser();
-            JSONArray customerList = (JSONArray) jsonParser.parse(fr);
-            System.out.println(customerList);
-            for(int i=0;i<customerList.size();i++) {
-                JSONObject cust = (JSONObject) customerList.get(i);
-                c.add(cust);
+            br = new BufferedReader(fr);
+
+            String st;
+            while ((st = br.readLine()) != null){
+                Customer c1 = obj.readValue(st,Customer.class);
+                cList.add(c1);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return c;
+        return cList;
     }
 
     @Override
     public Customer getCustomerById(int id) {
-        return customers.get(id);
+        ObjectMapper obj = new ObjectMapper();
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+
+            String st;
+            while ((st = br.readLine()) != null){
+                Customer c1 = obj.readValue(st,Customer.class);
+                if(c1.getId()==id)
+                    return c1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new Customer();
     }
 
     @Override
     public int deleteCustomerById(int id) {
-        return customers.remove(id).getId();
+        ObjectMapper obj = new ObjectMapper();
+        try {
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+
+            String st;
+            while ((st = br.readLine()) != null){
+                Customer c1 = obj.readValue(st,Customer.class);
+                if(c1.getId()==id){
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override
@@ -56,17 +84,11 @@ public class CustomerServiceImpl implements CustomerService{
         ObjectMapper Obj = new ObjectMapper();
 
         try {
-            fw = new FileWriter(file);
+            fw = new FileWriter(file,true);
+
             String jsonStr = Obj.writeValueAsString(customer);
-            System.out.println(jsonStr);
-            JSONObject jObject = new JSONObject();
-            jObject.put(id, jsonStr);
-
-            JSONArray customerList = new JSONArray();
-            customerList.add(jObject);
-
-            fw.write(customerList.toJSONString());
-            //fw.write(jsonStr);
+            fw.append(jsonStr);
+            fw.append("\n");
             fw.flush();
             fw.close();
             return true;

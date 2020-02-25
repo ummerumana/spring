@@ -8,6 +8,9 @@ public class Customer {
     private String address;
     private long phone;
 
+    public Customer() {
+    }
+
     public Customer(int id, String firstName, String lastName, String email, String address, long phone) {
         this.id = id;
         this.firstName = firstName;
@@ -63,5 +66,17 @@ public class Customer {
 
     public void setPhone(long phone) {
         this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", phone=" + phone +
+                '}';
     }
 }

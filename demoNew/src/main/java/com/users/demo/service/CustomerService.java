@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface CustomerService {
 
-    Collection<JSONObject> getAllCustomers();
+    Collection<Customer> getAllCustomers();
     Customer getCustomerById(int id);
     int deleteCustomerById(int id);
     boolean insertCustomer(int id, Customer customer);
