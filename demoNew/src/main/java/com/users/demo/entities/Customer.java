@@ -1,6 +1,10 @@
 package com.users.demo.entities;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Customer {
+
     private int id;
     private String firstName;
     private String lastName;

@@ -1,19 +1,21 @@
 package com.users.demo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.org.apache.xerces.internal.xs.datatypes.ObjectList;
 import com.users.demo.entities.Customer;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.springframework.stereotype.Repository;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-@Repository
+@Service
 public class CustomerServiceImpl implements CustomerService{
-    private File file = new File("/home/ummerummana/Documents/customers/details.txt");
+
+    @Value("${file.path}")
+    private String name;
+    //private File file = new File(name);
 
     private FileWriter fw;
     private FileReader fr;
@@ -26,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService{
         List<Customer> cList = new ArrayList<Customer>();
         ObjectMapper obj = new ObjectMapper();
         try {
-            fr = new FileReader(file);
+            fr = new FileReader(new File(name));
             br = new BufferedReader(fr);
 
             String st;
@@ -44,7 +46,7 @@ public class CustomerServiceImpl implements CustomerService{
     public Customer getCustomerById(int id) {
         ObjectMapper obj = new ObjectMapper();
         try {
-            fr = new FileReader(file);
+            fr = new FileReader(new File(name));
             br = new BufferedReader(fr);
 
             String st;
@@ -63,7 +65,7 @@ public class CustomerServiceImpl implements CustomerService{
     public int deleteCustomerById(int id) {
         ObjectMapper obj = new ObjectMapper();
         try {
-            fr = new FileReader(file);
+            fr = new FileReader(new File(name));
             br = new BufferedReader(fr);
 
             String st;
@@ -84,7 +86,7 @@ public class CustomerServiceImpl implements CustomerService{
         ObjectMapper Obj = new ObjectMapper();
 
         try {
-            fw = new FileWriter(file,true);
+            fw = new FileWriter(new File(name),true);
 
             String jsonStr = Obj.writeValueAsString(customer);
             fw.append(jsonStr);
