@@ -36,6 +36,9 @@ public class CustomerDaoImpl implements CustomerDao {
 
     @Override
     public void updateCustomerById(int id, Customer customer) {
+        Customer cust = (Customer) userRepository.findById(id).get();
+        cust = customer;
+        userRepository.save(cust);
 
     }
 }

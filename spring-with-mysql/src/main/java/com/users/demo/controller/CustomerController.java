@@ -33,13 +33,13 @@ public class CustomerController {
         customerService.deleteCustomerById(id);
     }
 
-    @RequestMapping(method = RequestMethod.PUT,value = "/update/{id}")
+    @RequestMapping(method = RequestMethod.PUT,value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     void updateCustomer(@PathVariable("id") int id,@RequestBody Customer customer)
     {
         customerService.updateCustomerById(id, customer);
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/insert/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST,value = "/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     void insertCustomer(@RequestBody Customer customer){
         customerService.insertCustomer(customer);
     }
