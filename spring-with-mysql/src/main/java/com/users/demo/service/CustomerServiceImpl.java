@@ -24,12 +24,12 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Transactional
-    public Customer getCustomerById(long id) {
+    public Customer getCustomerById(int id) {
         return customerDao.getCustomerById(id);
     }
 
     @Transactional
-    public void deleteCustomerById(long id) {
+    public void deleteCustomerById(int id) {
        customerDao.deleteCustomerById(id);
     }
 
@@ -39,7 +39,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Transactional
-    public void updateCustomerById(long id,Customer customer) {
+    public void updateCustomerById(int id,Customer customer) {
         customerDao.updateCustomerById(id,customer);
     }
 

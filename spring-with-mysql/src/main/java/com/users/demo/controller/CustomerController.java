@@ -22,19 +22,19 @@ public class CustomerController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/get/{id}")
-    Customer getCustomerById(@PathVariable("id") long id)
+    Customer getCustomerById(@PathVariable("id") int id)
     {
         return customerService.getCustomerById(id);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/remove/{id}" )
-    void deleteCustomerById(@PathVariable("id") long id)
+    void deleteCustomerById(@PathVariable("id") int id)
     {
         customerService.deleteCustomerById(id);
     }
 
     @RequestMapping(method = RequestMethod.PUT,value = "/update/{id}")
-    void updateCustomer(@PathVariable("id") long id,@RequestBody Customer customer)
+    void updateCustomer(@PathVariable("id") int id,@RequestBody Customer customer)
     {
         customerService.updateCustomerById(id, customer);
     }

@@ -10,8 +10,8 @@ import java.util.Map;
 public interface CustomerService {
 
     List getAllCustomers();
-    Customer getCustomerById(long id);
-    void deleteCustomerById(long id);
+    Customer getCustomerById(int id);
+    void deleteCustomerById(int id);
     void insertCustomer(Customer customer);
-    void updateCustomerById(long id, Customer customer);
+    void updateCustomerById(int id, Customer customer);
 }
