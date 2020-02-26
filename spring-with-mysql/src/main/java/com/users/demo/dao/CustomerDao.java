@@ -1,16 +1,15 @@
-package com.users.demo.service;
+package com.users.demo.dao;
 
 import com.users.demo.entities.Customer;
-import org.json.simple.JSONObject;
+import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
-import java.util.Map;
 
-public interface CustomerService {
-
+@Repository
+public interface CustomerDao {
     Collection<Customer> getAllCustomers();
     Customer getCustomerById(long id);
     int deleteCustomerById(long id);
     boolean insertCustomer(Customer customer);
-    boolean updateCustomerById(long id, Customer customer);
+    boolean updateCustomerById(long id,Customer customer);
 }

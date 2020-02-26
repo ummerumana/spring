@@ -1,22 +1,33 @@
 package com.users.demo.entities;
 
+import lombok.Data;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
+
 @Component
+@Entity
 public class Customer {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "CustomerId")
+    private long id;
+    @Column(name = "CustomerFname")
     private String firstName;
+    @Column(name = "CustomerLname")
     private String lastName;
+    @Column(name = "CustomerEmail")
     private String email;
+    @Column(name = "CustomerAddress")
     private String address;
+    @Column(name = "CustomerPhone")
     private long phone;
 
     public Customer() {
     }
 
-    public Customer(int id, String firstName, String lastName, String email, String address, long phone) {
-        this.id = id;
+    public Customer(String firstName, String lastName, String email, String address, long phone) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -24,11 +35,11 @@ public class Customer {
         this.phone = phone;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

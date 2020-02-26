@@ -21,7 +21,7 @@ public class CustomerServiceImpl implements CustomerService{
     private FileReader fr;
     private BufferedReader br;
 
-    private static Map<Integer, Customer> customers;
+    private static Map<Long, Customer> customers;
 
     @Override
     public List<Customer> getAllCustomers() {
@@ -43,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public Customer getCustomerById(int id) {
+    public Customer getCustomerById(long id) {
         ObjectMapper obj = new ObjectMapper();
         try {
             fr = new FileReader(new File(name));
@@ -62,7 +62,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public int deleteCustomerById(int id) {
+    public int deleteCustomerById(long id) {
         ObjectMapper obj = new ObjectMapper();
         try {
             fr = new FileReader(new File(name));
@@ -82,7 +82,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public boolean insertCustomer(int id,Customer customer) {
+    public boolean insertCustomer(Customer customer) {
         ObjectMapper Obj = new ObjectMapper();
 
         try {
@@ -102,7 +102,7 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public boolean updateCustomer(int id,Customer customer) {
+    public boolean updateCustomerById(long id,Customer customer) {
 
         if(id == customers.put(customer.getId(),customer).getId())
         return true;
