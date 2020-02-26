@@ -1,9 +1,11 @@
 package com.users.demo.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.users.demo.dao.CustomerDao;
 import com.users.demo.entities.Customer;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,100 +15,32 @@ import java.util.Map;
 @Service
 public class CustomerServiceImpl implements CustomerService{
 
-    @Value("${file.path}")
-    private String name;
-    //private File file = new File(name);
+    @Autowired
+    private CustomerDao customerDao;
 
-    private FileWriter fw;
-    private FileReader fr;
-    private BufferedReader br;
-
-    private static Map<Long, Customer> customers;
-
-    @Override
-    public List<Customer> getAllCustomers() {
-        List<Customer> cList = new ArrayList<Customer>();
-        ObjectMapper obj = new ObjectMapper();
-        try {
-            fr = new FileReader(new File(name));
-            br = new BufferedReader(fr);
-
-            String st;
-            while ((st = br.readLine()) != null){
-                Customer c1 = obj.readValue(st,Customer.class);
-                cList.add(c1);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return cList;
+    @Transactional
+    public List getAllCustomers() {
+       return customerDao.getAllCustomers();
     }
 
-    @Override
+    @Transactional
     public Customer getCustomerById(long id) {
-        ObjectMapper obj = new ObjectMapper();
-        try {
-            fr = new FileReader(new File(name));
-            br = new BufferedReader(fr);
-
-            String st;
-            while ((st = br.readLine()) != null){
-                Customer c1 = obj.readValue(st,Customer.class);
-                if(c1.getId()==id)
-                    return c1;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new Customer();
+        return customerDao.getCustomerById(id);
     }
 
-    @Override
-    public int deleteCustomerById(long id) {
-        ObjectMapper obj = new ObjectMapper();
-        try {
-            fr = new FileReader(new File(name));
-            br = new BufferedReader(fr);
-
-            String st;
-            while ((st = br.readLine()) != null){
-                Customer c1 = obj.readValue(st,Customer.class);
-                if(c1.getId()==id){
-
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
+    @Transactional
+    public void deleteCustomerById(long id) {
+       customerDao.deleteCustomerById(id);
     }
 
-    @Override
-    public boolean insertCustomer(Customer customer) {
-        ObjectMapper Obj = new ObjectMapper();
-
-        try {
-            fw = new FileWriter(new File(name),true);
-
-            String jsonStr = Obj.writeValueAsString(customer);
-            fw.append(jsonStr);
-            fw.append("\n");
-            fw.flush();
-            fw.close();
-            return true;
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+    @Transactional
+    public void insertCustomer(Customer customer) {
+        customerDao.insertCustomer(customer);
     }
 
-    @Override
-    public boolean updateCustomerById(long id,Customer customer) {
-
-        if(id == customers.put(customer.getId(),customer).getId())
-        return true;
-        return false;
+    @Transactional
+    public void updateCustomerById(long id,Customer customer) {
+        customerDao.updateCustomerById(id,customer);
     }
 
 }

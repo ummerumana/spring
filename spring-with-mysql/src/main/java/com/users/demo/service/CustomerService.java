@@ -4,13 +4,14 @@ import com.users.demo.entities.Customer;
 import org.json.simple.JSONObject;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 public interface CustomerService {
 
-    Collection<Customer> getAllCustomers();
+    List getAllCustomers();
     Customer getCustomerById(long id);
-    int deleteCustomerById(long id);
-    boolean insertCustomer(Customer customer);
-    boolean updateCustomerById(long id, Customer customer);
+    void deleteCustomerById(long id);
+    void insertCustomer(Customer customer);
+    void updateCustomerById(long id, Customer customer);
 }

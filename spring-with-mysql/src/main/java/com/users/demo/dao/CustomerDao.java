@@ -4,12 +4,13 @@ import com.users.demo.entities.Customer;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 
 @Repository
 public interface CustomerDao {
-    Collection<Customer> getAllCustomers();
+    List getAllCustomers();
     Customer getCustomerById(long id);
-    int deleteCustomerById(long id);
-    boolean insertCustomer(Customer customer);
-    boolean updateCustomerById(long id,Customer customer);
+    void deleteCustomerById(long id);
+    void insertCustomer(Customer customer);
+    void updateCustomerById(long id,Customer customer);
 }
