@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Id</title>
+</head>
+<body>
+<center>
+    <h5>Enter Id to search Customer</h5>
+    <form action="#" th:action="@{/getuser/{id}(id=${id})}">
+        <input type="number" name="id" id="id">
+        <input type="submit" value="Show customer"/>
+    </form>
+</center>
+
+</body>
+</html>

@@ -16,10 +16,21 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @RequestMapping("/home")
-    public String homePage(){
-        return "home";
-    }
+        @RequestMapping("/home")
+        public String homePage(){
+            return "home";
+        }
+
+        @GetMapping("/get")
+        public String getId() {
+            return "getid";
+        }
+        @GetMapping("/getuser/{id}")
+        public String getUser(@PathVariable("id") int id, Model model) {
+            Customer customer = customerService.getCustomerById(id);
+            model.addAttribute("customer", customer);
+            return "showUser";
+        }
 
         @RequestMapping("/index")
         public String indexpage(Model model) {
@@ -35,13 +46,10 @@ public class CustomerController {
         @PostMapping("/adduser")
         public String addUser(@Valid Customer customer, BindingResult result, Model model) {
             if (result.hasErrors()) {
-                System.out.println(result.getAllErrors());
-                System.out.println("error");
                 return "addUser";
             }
 
             customerService.insertCustomer(customer);
-            System.out.println("successful");
             model.addAttribute("customers", customerService.getAllCustomers());
             return "index";
         }
@@ -65,12 +73,12 @@ public class CustomerController {
             return "index";
         }
 
-    @GetMapping("/remove/{id}")
-    public String removedUser(@PathVariable("id") int id,Model model) {
-        Customer customer = customerService.getCustomerById(id);
-        model.addAttribute("customer", customer);
-        return "deleteUser";
-    }
+        @GetMapping("/remove/{id}")
+        public String removedUser(@PathVariable("id") int id,Model model) {
+            Customer customer = customerService.getCustomerById(id);
+            model.addAttribute("customer", customer);
+            return "deleteUser";
+        }
         @GetMapping("/delete/{id}")
         public String deleteUser(@PathVariable("id") int id, Model model) {
             customerService.deleteCustomerById(id);
