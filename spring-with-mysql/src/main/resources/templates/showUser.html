@@ -21,6 +21,12 @@ Phone  : <td th:text="${customer.phone}"></td><br/>
 <form action="#" th:action="@{/index}">
     <input type="submit" value="All customers"/>
 </form>
+<form action="#" th:action="@{/remove/{id}(id=${customer.id})}">
+    <input type="submit" value="delete customer"/>
+</form>
+<form action="#" th:action="@{/edit/{id}(id=${customer.id})}">
+    <input type="submit" value="Update customers"/>
+</form>
 
 </table>
 </body>
