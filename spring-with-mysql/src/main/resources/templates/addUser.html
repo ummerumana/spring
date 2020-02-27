@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="">
+<html lang="en" content="text/html" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>User Adding ...</title>
 </head>
 <body>
 
     <form action="#" th:action="@{/insert}" th:object="${customer}" method="post">
         <label for="firstName">FirstName</label>
-        <input type="text" th:field="*{fname}" id="firstName" placeholder="FirstName">
+        <input type="text" th:field="*{firstName}" id="firstName" placeholder="FirstName">
         <label for="lastName">LastName</label>
-        <input type="text" th:field="*{lname}" id="lastName" placeholder="LastName">
-        <label for="email">FirstName</label>
-        <input type="text" th:field="*{name}" id="email" placeholder="Email">
+        <input type="text" th:field="*{lastName}" id="lastName" placeholder="LastName">
+        <label for="email">Email</label>
+        <input type="text" th:field="*{email}" id="email" placeholder="Email">
         <label for="email">Address</label>
         <input type="text" th:field="*{address}" id="address" placeholder="Address">
         <label for="phone">Phone</label>

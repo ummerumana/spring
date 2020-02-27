@@ -39,8 +39,17 @@ public class CustomerController {
         customerService.updateCustomerById(id, customer);
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    void insertCustomer(@RequestBody Customer customer){
+    @RequestMapping(value = "/insert")
+    String insert()
+    {
+        return "addUser.html";
+    }
+
+
+//    @RequestMapping(method = RequestMethod.POST,value = "/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    String insertCustomer(@RequestBody Customer customer){
         customerService.insertCustomer(customer);
+        return "addUser.html";
     }
 }
