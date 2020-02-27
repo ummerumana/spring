@@ -19,7 +19,6 @@ public class Customer {
     @Column(name = "CustomerLname")
     private String lastName;
     @Column(name = "CustomerEmail")
-    @NotBlank(message = "Email is mandatory")
     private String email;
     @Column(name = "CustomerAddress")
     private String address;
@@ -90,5 +89,9 @@ public class Customer {
                 ", address='" + address + '\'' +
                 ", phone=" + phone +
                 '}';
+    }
+
+    public void setId(int id) {
+        this.id=id;
     }
 }

@@ -2,16 +2,16 @@ package com.users.demo.controller;
 
 import com.users.demo.entities.Customer;
 import com.users.demo.service.CustomerService;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import javax.validation.Valid;
 import java.util.List;
 
-@RestController
-@RequestMapping(value = "/customer")
+@Controller
 public class CustomerController {
     @Autowired
     CustomerService customerService;
@@ -27,29 +27,56 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/remove/{id}" )
-    void deleteCustomerById(@PathVariable("id") int id)
-    {
-        customerService.deleteCustomerById(id);
-    }
 
-    @RequestMapping(method = RequestMethod.PUT,value = "/update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    void updateCustomer(@PathVariable("id") int id,@RequestBody Customer customer)
-    {
-        customerService.updateCustomerById(id, customer);
-    }
+        //new
+        @GetMapping("/index")
+        public String indexpage() {
+            return "index";
+        }
 
-    @RequestMapping(value = "/insert")
-    String insert()
-    {
-        return "addUser.html";
-    }
+        @GetMapping("/signup")
+        public String showSignUpForm(Customer customer) {
+            return "addUser";
+        }
 
+        @PostMapping("/adduser")
+        public String addUser(@Valid Customer customer, BindingResult result, Model model) {
+            if (result.hasErrors()) {
+                System.out.println(result.getAllErrors());
+                System.out.println("error");
+                return "addUser";
+            }
 
-//    @RequestMapping(method = RequestMethod.POST,value = "/insert", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+            customerService.insertCustomer(customer);
+            System.out.println("successful");
+            model.addAttribute("customers", customerService.getAllCustomers());
+            return "index";
+        }
 
-    String insertCustomer(@RequestBody Customer customer){
-        customerService.insertCustomer(customer);
-        return "addUser.html";
-    }
+        @GetMapping("/edit/{id}")
+        public String showUpdateForm(@PathVariable("id") int id, Model model) {
+            Customer customer = customerService.getCustomerById(id);
+            model.addAttribute("customer", customer);
+            return "updateUser";
+        }
+
+        @PostMapping("/update/{id}")
+        public String updateUser(@PathVariable("id") int id, @Valid Customer customer, BindingResult result, Model model) {
+            if (result.hasErrors()) {
+                customer.setId(id);
+                return "updateUser";
+            }
+
+            customerService.insertCustomer(customer);
+            model.addAttribute("customers", customerService.getAllCustomers());
+            return "index";
+        }
+
+        @GetMapping("/delete/{id}")
+        public String deleteUser(@PathVariable("id") int id, Model model) {
+            customerService.deleteCustomerById(id);
+            model.addAttribute("customers", customerService.getAllCustomers());
+            return "index";
+        }
+
 }
