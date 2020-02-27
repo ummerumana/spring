@@ -16,21 +16,14 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "/all")
-    List<Customer> getAllCustomers() {
-        return customerService.getAllCustomers();
+    @RequestMapping("/home")
+    public String homePage(){
+        return "home";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/get/{id}")
-    Customer getCustomerById(@PathVariable("id") int id)
-    {
-        return customerService.getCustomerById(id);
-    }
-
-
-        //new
         @RequestMapping("/index")
-        public String indexpage() {
+        public String indexpage(Model model) {
+            model.addAttribute("customers",customerService.getAllCustomers());
             return "index";
         }
 
