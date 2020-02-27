@@ -29,7 +29,7 @@ public class CustomerController {
 
 
         //new
-        @GetMapping("/index")
+        @RequestMapping("/index")
         public String indexpage() {
             return "index";
         }
@@ -72,6 +72,12 @@ public class CustomerController {
             return "index";
         }
 
+    @GetMapping("/remove/{id}")
+    public String removedUser(@PathVariable("id") int id,Model model) {
+        Customer customer = customerService.getCustomerById(id);
+        model.addAttribute("customer", customer);
+        return "deleteUser";
+    }
         @GetMapping("/delete/{id}")
         public String deleteUser(@PathVariable("id") int id, Model model) {
             customerService.deleteCustomerById(id);
