@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Component
 @Entity
@@ -18,6 +19,7 @@ public class Customer {
     @Column(name = "CustomerLname")
     private String lastName;
     @Column(name = "CustomerEmail")
+    @NotBlank(message = "Email is mandatory")
     private String email;
     @Column(name = "CustomerAddress")
     private String address;
