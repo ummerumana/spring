@@ -29,6 +29,8 @@ public class CustomerController {
         @GetMapping("/getuser")
         public String getUser(@RequestParam int id, Model model) {
             Customer customer = customerService.getCustomerById(id);
+            if(customer==null)
+                return "notfound";
             model.addAttribute("customer", customer);
             return "showUser";
         }
