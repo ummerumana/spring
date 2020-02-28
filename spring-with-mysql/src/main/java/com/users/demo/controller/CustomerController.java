@@ -21,12 +21,13 @@ public class CustomerController {
             return "home";
         }
 
-        @GetMapping("/get")
+        @RequestMapping("/get")
         public String getId() {
-            return "getid";
+        return "getid";
         }
-        @GetMapping("/getuser/{id}")
-        public String getUser(@PathVariable("id") int id, Model model) {
+
+        @GetMapping("/getuser")
+        public String getUser(@RequestParam int id, Model model) {
             Customer customer = customerService.getCustomerById(id);
             model.addAttribute("customer", customer);
             return "showUser";
