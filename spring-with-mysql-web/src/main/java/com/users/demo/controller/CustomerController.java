@@ -2,20 +2,21 @@ package com.users.demo.controller;
 
 import com.users.demo.entities.Customer;
 import com.users.demo.service.CustomerService;
-import org.json.simple.JSONObject;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Collection;
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/customer")
+@Api(value = "Customer Management System", description = "Operations pertaining to customers in Customer Management System")
 public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+    @ApiOperation(value = "View a list of available customers")
     @RequestMapping(method = RequestMethod.GET, value = "/all")
     List<Customer> getAllCustomers() {
         return customerService.getAllCustomers();
