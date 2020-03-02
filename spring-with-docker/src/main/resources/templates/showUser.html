@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body bgcolor="grey">
+<center>
+
+<h2 class="my-5">Customer details are :</h2>
+<br/>
+<br/>
+
+Id  : <td th:text="${customer.id}"></td><br/>
+FirstName  : <td th:text="${customer.firstName}"></td><br/>
+LastName  : <td th:text="${customer.lastName}"></td><br/>
+Email  : <td th:text="${customer.email}"></td><br/>
+Address  : <td th:text="${customer.address}"></td><br/>
+Phone  : <td th:text="${customer.phone}"></td><br/>
+
+<br/>
+<form action="#" th:action="@{/index}">
+    <input type="submit" value="All customers"/>
+</form>
+<form action="#" th:action="@{/remove/{id}(id=${customer.id})}">
+    <input type="submit" value="delete customer"/>
+</form>
+<form action="#" th:action="@{/edit/{id}(id=${customer.id})}">
+    <input type="submit" value="Update customers"/>
+</form>
+
+</table>
+</center>
+</body>
+</html>
