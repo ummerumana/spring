@@ -134,6 +134,7 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<finalName>spring-with-docker</finalName>
 	</build>
 
 
