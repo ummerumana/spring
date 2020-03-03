@@ -13,3 +13,17 @@ public class DemoApplication {
 
 	}
 }
+
+
+//to run
+
+//docker run --name mysql-standalone -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=customerdocker -d mysql:8
+
+//docker build . -t spring-mysql-docker
+
+//docker run -p 8086:8086 --name spring-mysql-docker --link mysql-standalone -d spring-mysql-docker
+
+//docker logs mysql-standalone
+
+//docker logs spring-mysql-docker
+
