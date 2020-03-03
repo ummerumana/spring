@@ -47,11 +47,6 @@
 
 		<!--OPENAPI-->
 
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.1.49</version>
-		</dependency>
 
 
 

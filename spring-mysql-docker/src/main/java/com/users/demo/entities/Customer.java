@@ -1,8 +1,6 @@
 package com.users.demo.entities;
 
-import lombok.Data;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 
 @Component
